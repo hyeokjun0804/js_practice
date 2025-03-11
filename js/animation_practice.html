@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animation Example</title>
+    <style>
+        /* 애니메이션 정의 */
+        @keyframes slidein {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        /* 애니메이션을 적용할 요소 스타일 */
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: coral;
+            animation: slidein 2s ease-in-out 0s infinite alternate;
+            /* 애니메이션 이름: slidein, 지속 시간: 2초, 타이밍 함수: ease-in-out, 지연 시간: 0초, 반복 횟수: 무한, 방향: alternate */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-box"></div>
+</body>
+
+</html>

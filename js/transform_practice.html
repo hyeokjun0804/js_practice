@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transform: translate 예제</title>
+    <style>
+        /* 컨테이너 스타일 */
+        #container {
+            width: 800px;
+            /* 컨테이너의 너비 */
+            height: 200px;
+            /* 컨테이너의 높이 */
+            margin: 20px auto;
+            /* 중앙 정렬을 위한 마진 */
+        }
+
+        /* 각 박스의 기본 스타일 */
+        .origin {
+            width: 100px;
+            /* 박스의 너비 */
+            height: 100px;
+            /* 박스의 높이 */
+            border: 1px solid black;
+            /* 박스의 테두리 */
+            float: left;
+            /* 왼쪽으로 정렬하여 가로로 배치 */
+            margin: 40px;
+            /* 박스 사이의 간격 */
+        }
+
+        /* 박스 내부 요소의 기본 스타일 */
+        .origin>div {
+            width: 100px;
+            /* 내부 요소의 너비 */
+            height: 100px;
+            /* 내부 요소의 높이 */
+            background-color: orange;
+            /* 배경색 설정 */
+            transition: transform 0.3s ease;
+            /* 변형 시 부드러운 애니메이션 적용 */
+        }
+
+        /* X축으로 이동 효과 */
+        #movex:hover {
+            transform: translateX(50px);
+            /* X축으로 50px 이동 */
+        }
+
+        /* Y축으로 이동 효과 */
+        #movey:hover {
+            transform: translateY(20px);
+            /* Y축으로 20px 이동 */
+        }
+
+        /* X축과 Y축으로 동시에 이동 효과 */
+        #movexy:hover {
+            transform: translate(10px, 20px);
+            /* X축으로 10px, Y축으로 20px 이동 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 변형 효과를 적용할 요소들을 담고 있는 컨테이너 -->
+    <div id="container">
+        <!-- X축 이동 효과 박스 -->
+        <div class="origin">
+            <div id="movex"></div>
+        </div>
+        <!-- Y축 이동 효과 박스 -->
+        <div class="origin">
+            <div id="movey"></div>
+        </div>
+        <!-- X축과 Y축 동시 이동 효과 박스 -->
+        <div class="origin">
+            <div id="movexy"></div>
+        </div>
+    </div>
+</body>
+
+</html>

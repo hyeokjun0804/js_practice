@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <input type="checkbox">
+    <em class="message">off</em>
+    <script>
+        let checkbox = document.querySelector('input[type=checkbox]');
+        let msg = document.querySelector('.message');
+        checkbox.onchange = (target) => {
+            console.log(Object.getPrototypeOf(event) === Event.prototype);
+            console.log(target);
+            msg.textContent = event.target.checked ? 'on' : 'off';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="tableContainer">table</div>
+    <div id="listContainer">ul</div>
+    <button onclick="actionEvent()">button</button>
+    <div id="clock"></div>
+    <script>
+        //ul
+        const product = ["컴퓨터", "키보드", "마우스"];
+        const ul = document.createElement("ul");
+
+        for (let i = 0; i < product.length; i++) {
+            const li = document.createElement("li");
+            li.textContent = product[i];
+            ul.appendChild(li);
+        }
+
+        // ul을 listContainer에 추가
+        document.querySelector("#listContainer").appendChild(ul);
+
+/*         // 테이블
+        const data = [
+            ["Name", "Age", "City"],
+            ["Alice", 25, "New York"],
+            ["Bob", 30, "Los Angeles"],
+            ["Charlie", 35, "Chicago"]
+        ];
+
+        const div = document.querySelector("#tableContainer");
+
+        function actionEvent() {
+            const table = document.createElement("table");
+            for (let i = 0; i < data.length; i++) {
+                const tr = document.createElement("tr");
+                for (let dataum of data[i]) {
+                    if (i == 0) {
+                        const th = document.createElement("th");
+                        th.innerHTML = dataum;
+                        tr.appendChild(th);
+                    }
+                    else {
+                        const td = document.createElement("td");
+                        td.innerHTML = dataum;
+                        tr.appendChild(td);
+                    }
+                }
+                table.appendChild(tr);
+            }
+            div.appendChild(table);
+        } */
+//forEach 사용
+        const data = [
+    ["Name", "Age", "City"],
+    ["Alice", 25, "New York"],
+    ["Bob", 30, "Los Angeles"],
+    ["Charlie", 35, "Chicago"]
+];
+
+const div = document.querySelector("#tableContainer");
+
+function actionEvent() {
+    const table = document.createElement("table");
+
+    data.forEach(item =>{
+        const tr = document.createElement("tr");
+
+        item.forEach((dataum,idx) => {
+            if (idx == 0) {
+                const th = document.createElement("th");
+                th.innerHTML = dataum;
+                tr.appendChild(th);
+            }
+            else {
+                const td = document.createElement("td");
+                td.innerHTML = dataum;
+                tr.appendChild(td);
+            }
+        })
+        table.appendChild(tr);
+    })
+    div.appendChild(table);
+}
+        // 디지털 시계
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            // 숫자가 한 자리일 때 앞에 0을 추가
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            // 시간을 "HH:MM:SS" 형식으로 표시
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            // clock 요소에 시간 표시
+            document.getElementById('clock').textContent = timeString;
+        }
+        // 1초마다 updateClock 함수를 호출하여 시계를 업데이트
+        setInterval(updateClock, 1000);
+        // 페이지가 로드될 때 바로 시계 표시
+        updateClock();
+
+        /*         const table = document.createElement("table");
+                for (let i = 0; i < data.length; i++) {
+                    const tr = document.createElement("tr");
+        
+                for (let j = 0; j < data[i].length; j++) {
+                    if (i === 0) {
+                        // 첫 번째 행은 헤더(th)로 처리
+                        const th = document.createElement("th");
+                        th.textContent = data[i][j];
+                        tr.appendChild(th);
+                    } else {
+                        // 그 외 행은 데이터 셀(td)로 처리
+                        const td = document.createElement("td");
+                        td.textContent = data[i][j];
+                        tr.appendChild(td);
+                    }
+                }    
+                // 행을 테이블에 추가
+                table.appendChild(tr);
+            } */
+        // 테이블을 div에 추가
+        //div.appendChild(table);
+
+        /* const div = document.querySelector("#tableContainer")
+        console.log(div) */
+
+        /*         for (let item of data) {
+                    for(let datum of item) {
+                        console.log(dataum)
+                    }
+                } */
+    </script>
+</body>
+
+</html>

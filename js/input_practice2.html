@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>셀 클릭 이벤트</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .selected {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+    <h4>선택된 번호: <span id="selectedNumbers">없음</span></h4>
+
+    <script>
+        var selectedNumbers = [];
+
+        function createTable() {
+            var tableBody = document.getElementById('tableBody');
+            var count = 1;
+
+            for (var i = 0; i < 6; i++) {
+                var row = document.createElement('tr');
+                
+                for (var j = 0; j < 8; j++) {
+                    var cell = document.createElement('td');
+                    cell.textContent = count;
+
+                    cell.addEventListener('click', function() {
+                        toggleCell(this);
+                    });
+                    
+                    row.appendChild(cell);
+                    count++;
+                }
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        function toggleCell(cell) {
+            var number = cell.textContent;
+
+            if (cell.classList.contains('selected')) {
+                cell.classList.remove('selected');
+                selectedNumbers = selectedNumbers.filter(n => n !== number);
+            } else {
+                cell.classList.add('selected');
+                selectedNumbers.push(number);
+            }
+
+            updateSelectedNumbers();
+        }
+
+        function updateSelectedNumbers() {
+            var selectedNumbersElement = document.getElementById('selectedNumbers');
+            if (selectedNumbers.length > 0) {
+                selectedNumbersElement.textContent = selectedNumbers.join(', ');
+            } else {
+                selectedNumbersElement.textContent = '없음';
+            }
+        }
+
+        createTable();
+    </script>
+</body>
+</html>

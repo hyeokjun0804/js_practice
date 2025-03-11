@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSS Grid Layout</title>
+    <style>
+        #wrapper {
+            width: 700px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3개의 칼럼, 각 칼럼은 동일한 너비로 */
+            grid-template-rows: repeat(3, 100px);
+            /* 3개의 행, 각 행의 높이는 100px */
+        }
+
+        .box {
+            padding: 15px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .box1 {
+            background-color: #3689ff;
+            grid-column: 1 / 4;
+            /* 1번째 칼럼부터 4번째 칼럼까지 차지 (전체 너비 차지) */
+        }
+
+        .box2 {
+            background-color: #00cf12;
+            grid-row: 2 / 4;
+            /* 2번째 행부터 4번째 행까지 차지 */
+            grid-column-start: 1;
+            /* 1번째 칼럼에서 시작 */
+        }
+
+        .box3 {
+            background-color: #ff9019;
+            grid-column: 2 / 4;
+            /* 2번째 칼럼부터 4번째 칼럼까지 차지 */
+            grid-row-start: 2;
+            /* 2번째 행에서 시작 */
+        }
+
+        .box4 {
+            background-color: #ffd000;
+            grid-column-start: 3;
+            /* 3번째 칼럼에서 시작 */
+            grid-row-start: 3;
+            /* 3번째 행에서 시작 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="box box1">box1</div>
+        <div class="box box2">box2</div>
+        <div class="box box3">box3</div>
+        <div class="box box4">box4</div>
+    </div>
+</body>
+
+</html>

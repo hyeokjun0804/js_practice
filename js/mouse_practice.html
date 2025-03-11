@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #fff700;
+            border: 5px solid orange;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        let box = document.querySelector('.box');
+        let initMousePos = { x: 0, y: 0 };
+        let offset = { x: 0, y: 0 };
+
+        let move = e => {
+            offset.x = e.clientX - initMousePos.x;
+            offset.y = e.clientY - initMousePos.y;
+            box.style.transform = `translate3d(${offset.x}px, ${offset.y}px, 0)`;
+        };
+
+        box.addEventListener('mousedown', e => {
+            initMousePos.x = e.clientX - offset.x;
+            initMousePos.y = e.clientY - offset.y;
+
+            document.addEventListener('mousemove', move);
+        });
+
+        document.addEventListener('mouseup', () => {
+            document.removeEventListener('mousemove', move);
+        });
+
+    </script>
+</body>
+
+</html>

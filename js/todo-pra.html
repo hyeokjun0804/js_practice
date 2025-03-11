@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            color: darkslategray;
+        }
+
+        form {
+            background-color: blue;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        input {
+            width: 350px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .addButton {
+            padding: 10px 15px;
+            margin-left: 5px;
+            background-color: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .addButton:hover {
+            background-color: lightgray;
+        }
+
+        ul {
+            margin: 20px 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        ul li {
+            background-color: #f2f2f2;
+            padding: 15px;
+            margin-bottom: 5px;
+            font-size: 18px;
+            position: relative;
+        }
+
+        ul li:hover {
+            background-color: #dcdcdc;
+        }
+
+        .deleteButton {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .deleteButton:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <h2>할일 목록</h2>
+        <form>
+            <input type="text" id="taskInput" placeholder="Enter a task">
+            <button type="button" id="addTask" class="addButton">추가</button>
+        </form>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        let taskList = [];
+
+        const displayTasks = () => {
+            const listElement = document.getElementById('taskList');
+            listElement.innerHTML = '';
+
+            taskList.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${task} <button class="deleteButton" data-index="${index}">X</button>`;
+                listElement.appendChild(li);
+            });
+
+            // Delete button functionality
+            const deleteButtons = document.querySelectorAll('.deleteButton');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', deleteTask);
+            });
+        };
+
+        const addTask = () => {
+            const taskInput = document.getElementById('taskInput');
+            const task = taskInput.value.trim();
+
+            if (task === "") {
+                alert("내용을 입력해주세요");
+                return;
+            }
+
+            taskList.push(task);
+            taskInput.value = '';
+            taskInput.focus();
+
+            displayTasks();
+        };
+
+        const deleteTask = (event) => {
+            const index = event.target.getAttribute('data-index');
+            taskList.splice(index, 1);
+            displayTasks();
+        };
+
+        document.getElementById('addTask').addEventListener('click', addTask);
+    </script>
+
+</body>
+
+</html>

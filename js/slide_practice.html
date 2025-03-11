@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .slider {
+            position: relative;
+            overflow: hidden;
+            width: 750px;
+        }
+
+        .slider-ul {
+            display: flex;
+            transition: transform 1s ease-in-out;
+            padding: 0;
+            margin: 0;
+        }
+
+        .slide {
+            list-style: none;
+            flex-shrink: 0;
+            width: 250px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            /* 이미지 높이를 고정 */
+            object-fit: cover;
+            /* 비율 유지하며 슬라이드에 맞게 자름 */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .left-arrow {
+            left: 5px;
+        }
+
+        .right-arrow {
+            right: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+        <button class="arrow left-arrow">◀</button>
+        <ul class="slider-ul" data-location="0">
+            <li class="slide"><img class="card-image" src="img/image1.jpg" alt="image1"></li>
+            <li class="slide"><img class="card-image" src="img/image2.jpg" alt="image2"></li>
+            <li class="slide"><img class="card-image" src="img/image3.jpg" alt="image3"></li>
+            <li class="slide"><img class="card-image" src="img/image4.jpg" alt="image4"></li>
+        </ul>
+        <button class="arrow right-arrow">▶</button>
+    </div>
+    <script>
+        let mouseFlag;
+        let startX;
+        let currentImg;
+        let ulList;
+        let cardLocation;
+        let nowCardLocation;
+
+        let dragStop = (event) => {
+            event.preventDefault();
+            if (mouseFlag === true) {
+                currentImg.removeEventListener('mousemove', dragMove);
+                currentImg.removeEventListener('mouseup', dragStop);
+                currentImg.removeEventListener('touchmove', dragMove);
+                currentImg.removeEventListener('touchup', dragStop);
+                ulList.style.transition = "transform 1s ease-in-out";
+                ulList.style.transform = "translateX(0px)";
+                ulList.setAttribute("data-location", 0);
+                let leftArrow = ulList.previousElementSibling;
+                console.log(leftArrow);
+                let rightArrow = ulList.nextElementSibling;
+                console.log(rightArrow);
+                /*                 if (ulList.clientWidth < ulList.children.length * 255) {
+                                    leftArrow.style.backgroundColor ="#f8b240"
+                                    leftArrow.style.opacity = 1;
+                                    leftArrow.classList.add("slide-left-hover");
+                                    leftArrow.addEventListener('click', transformleft);
+                                }
+                                rightArrow.style.backgroundColor ="#f8b240"
+                                rightArrow.style.opacity = 0.2;
+                                rightArrow.classList.add("slide-right-hover");
+                                rightArrow.addEventListener('click', transformRight); */
+            }
+            mouseFlag = false;
+        }
+
+        let dragMove = (event) => {
+            event.preventDefault();
+            let currentX = event.clientX || event.touches[0].screenX;
+            nowCardLocation = Number(cardLocation) + Number(currentX) - Number(startX);
+            ulList.style.transition = "transform 0s linear";
+            ulList.style.transform = `translateX(${String(nowCardLocation)}px)`;
+        }
+
+        let dragStart = (event) => {
+            mouseFlag = true;
+            event.preventDefault();
+            startX = event.clientX || event.touches[0].screenX;
+            currentImg = event.target; //img 객체
+            currentImg.addEventListener("mousemove", dragMove);
+            currentImg.addEventListener("mouseup", dragStop);
+            currentImg.addEventListener("touchmove", dragMove);
+            currentImg.addEventListener("touchup", dragStop);
+            ulList = currentImg.parentElement.parentElement;
+            cardLocation = ulList.dataset.location;
+        }
+        window.addEventListener("dragend", dragStop);
+        window.addEventListener("mouseup", dragStop);
+
+        const cardImgs = document.getElementsByClassName("card-image");
+        [...cardImgs].forEach(card => {
+            card.addEventListener("mousedown", dragStart);
+            card.addEventListener("touchstart", dragStart);
+        });
+        const slider = document.querySelector('.slider-ul');
+        const slideWidth = 250; // 각 슬라이드의 너비
+        let currentPosition = 0;
+
+        // 왼쪽 화살표 클릭 시
+        document.querySelector('.left-arrow').addEventListener('click', () => {
+            if (currentPosition < 0) { // 첫 번째 이미지로 가면 더 이상 이동하지 않음
+                currentPosition += slideWidth;
+                slider.style.transform = `translateX(${currentPosition}px)`;
+            }
+        });
+
+        // 오른쪽 화살표 클릭 시
+        document.querySelector('.right-arrow').addEventListener('click', () => {
+            const maxPosition = -(slideWidth * (slider.children.length - 3)); // 슬라이드가 더 이상 넘어가지 않도록 최대값 설정
+            if (currentPosition > maxPosition) {
+                currentPosition -= slideWidth;
+                slider.style.transform = `translat9eX(${currentPosition}px)`;
+            }
+        });
+    </script>
+</body>
+
+</html>

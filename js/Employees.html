@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <style>
+        #wrapper {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: lightgray;
+        }
+
+        h2 {
+            text-align: left;
+            color: blue;
+            border-bottom: 1px solid black;
+            padding-bottom: 20px;
+        }
+
+        .name-list {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .name {
+            margin: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: blue;
+        }
+
+        .name:hover {
+            color: darkblue;
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .form-container input {
+            width: 100px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <h2>Employees</h2>
+        <div class="name-list"></div>
+
+        <div id="info" class="info"></div>
+
+        <div class="actions">
+            <button onclick="showCreateForm()">Create</button>
+            <button onclick="showUpdateForm()">Update</button>
+            <button onclick="deletePerson()">Delete</button>
+        </div>
+
+        <div id="form" class="form"></div>
+    </div>
+
+    <script>
+        let selectedPerson = null;
+
+        let peopleInfo = {
+            John: {
+                name: 'John',
+                age: 28,
+                job: 'Developer',
+                language: 'JavaScript',
+                pay: '5000'
+            },
+            Peter: {
+                name: 'Peter',
+                age: 34,
+                job: 'Designer',
+                language: 'HTML/CSS',
+                pay: '4500'
+            },
+            Sue: {
+                name: 'Sue',
+                age: 24,
+                job: 'Data Analyst',
+                language: 'Python',
+                pay: '4800'
+            },
+            Susan: {
+                name: 'Susan',
+                age: 29,
+                job: 'Project Manager',
+                language: 'Java',
+                pay: '5200'
+            }
+        };
+
+        function displayNames() {
+            const nameListDiv = document.querySelector('.name-list');
+            nameListDiv.innerHTML = '';
+
+            for (let person in peopleInfo) {
+                const span = document.createElement('span');
+                span.className = 'name';
+                span.textContent = person;
+                span.onclick = () => showInfo(person);
+                nameListDiv.appendChild(span);
+            }
+        }
+
+        function showInfo(person) {
+            selectedPerson = person;
+            const infoDiv = document.getElementById('info');
+            const personInfo = peopleInfo[person];
+
+            if (personInfo) {
+                infoDiv.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Job</th>
+                            <th>Language</th>
+                            <th>Pay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${personInfo.name}</td>
+                            <td>${personInfo.age}</td>
+                            <td>${personInfo.job}</td>
+                            <td>${personInfo.language}</td>
+                            <td>${personInfo.pay}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            }
+        }
+
+        function showCreateForm() {
+            const formDiv = document.getElementById('form');
+            formDiv.innerHTML = `
+        <h3>Register</h3>
+        <div class="form-container">
+            <input type="text" id="newName" placeholder="Name" required>
+            <input type="number" id="newAge" placeholder="Age" required>
+            <input type="text" id="newJob" placeholder="Job" required>
+            <input type="text" id="newLanguage" placeholder="Language" required>
+            <input type="text" id="newPay" placeholder="Pay" required>
+        </div>
+        <button onclick="createPerson()">제출</button>
+    `;
+        }
+
+        function createPerson() {
+            const newName = document.getElementById('newName').value;
+            const newAge = document.getElementById('newAge').value;
+            const newJob = document.getElementById('newJob').value;
+            const newLanguage = document.getElementById('newLanguage').value;
+            const newPay = document.getElementById('newPay').value;
+
+            const lowerCaseName = newName.toLowerCase();
+            const isDuplicate = Object.keys(peopleInfo).some(person => person.toLowerCase() === lowerCaseName);
+
+            if (isDuplicate) {
+                alert(`${newName}는 이미 존재하는 이름입니다.`);
+                return;
+            }
+
+            if (newName && newAge && newJob && newLanguage && newPay) {
+                peopleInfo[newName] = {
+                    name: newName,
+                    age: newAge,
+                    job: newJob,
+                    language: newLanguage,
+                    pay: newPay
+                };
+                displayNames();
+                alert(`${newName}의 정보가 생성되었습니다.`);
+                document.getElementById('newName').value = '';
+                document.getElementById('newAge').value = '';
+                document.getElementById('newJob').value = '';
+                document.getElementById('newLanguage').value = '';
+                document.getElementById('newPay').value = '';
+            }
+            else {
+                alert("정보를 모두 입력해주세요.");
+            }
+        }
+
+        function showUpdateForm() {
+            if (!selectedPerson) {
+                alert("정보를 수정할 사람을 선택해주세요.");
+                return;
+            }
+
+            const personInfo = peopleInfo[selectedPerson];
+            const formDiv = document.getElementById('form');
+            formDiv.innerHTML = `
+                <h3>${selectedPerson}의 정보 업데이트</h3>
+                <div class="form-container">
+                    <input type="text" value="${personInfo.name}" readonly placeholder="Name">
+                    <input type="number" id="updateAge" value="${personInfo.age}" placeholder="Age" required>
+                    <input type="text" id="updateJob" value="${personInfo.job}" placeholder="Job" required>
+                    <input type="text" id="updateLanguage" value="${personInfo.language}" placeholder="Language" required>
+                    <input type="text" id="updatePay" value="${personInfo.pay}" placeholder="Pay" required>
+                </div>
+                <button onclick="updatePerson()">수정</button>
+            `;
+        }
+
+        function updatePerson() {
+            const updatedAge = document.getElementById('updateAge').value;
+            const updatedJob = document.getElementById('updateJob').value;
+            const updatedLanguage = document.getElementById('updateLanguage').value;
+            const updatedPay = document.getElementById('updatePay').value;
+
+            if (updatedAge && updatedJob && updatedLanguage && updatedPay) {
+                peopleInfo[selectedPerson].age = updatedAge;
+                peopleInfo[selectedPerson].job = updatedJob;
+                peopleInfo[selectedPerson].language = updatedLanguage;
+                peopleInfo[selectedPerson].pay = updatedPay;
+                showInfo(selectedPerson);
+                alert(`${selectedPerson}의 정보가 업데이트 되었습니다.`);
+            }
+            else {
+                alert("내용을 다 채워주세요.");
+            }
+        }
+
+        function deletePerson() {
+            if (!selectedPerson) {
+                alert("정보를 삭제할 사람을 선택하세요.");
+                return;
+            }
+
+            if (confirm(`${selectedPerson}의 정보를 삭제하시겠습니까?`)) {
+                delete peopleInfo[selectedPerson];
+                selectedPerson = null;
+                document.getElementById('info').innerHTML = '';
+                document.getElementById('form').innerHTML = '';
+                displayNames();
+                alert("정보가 삭제되었습니다.");
+            }
+        }
+
+        window.onload = displayNames;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">MyBlog</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="auth-links">
+                <a href="login.html" id="authLink">Login</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-form">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="사용자명 (3자리 이상)" pattern="[A-Za-z0-9]{3,}" title="사용자명은 3자리 이상이어야 됩니다." required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="비밀번호 (4자리 이상)" pattern="[A-Za-z0-9]{4,}" title="비밀번호는 4자리 이상이어야 됩니다." required>
+                
+                <button type="submit">Login</button>
+            </form>
+            <p class="signup-redirect">계정이 없으신가요? <a href="signup.html">회원가입</a></p>
+        </section>
+    </main>
+
+    <script src="script/login.js"></script>
+    <script src="script/auth.js"></script>
+</body>
+</html>
+
+
+
+
+

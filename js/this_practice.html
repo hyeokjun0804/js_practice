@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>마우스 드래그 예제</title>
+</head>
+
+<body>
+    <button class="btn1">0</button>
+    <button class="btn2">0</button>
+    <script>
+        let button1 = document.querySelector('.btn1');
+        let button2 = document.querySelector('.btn2');
+
+        button1.onclick = function (e) {
+            console.log(this); // 이벤트가 걸린 요소 (button1)
+            console.log(e.currentTarget); // 이벤트가 걸린 요소 (button1)
+            console.log(this === e.currentTarget); // true
+            this.textContent++; // 클릭한 버튼의 텍스트 값이 증가
+        };
+
+        button2.addEventListener('click', function (e) {
+            console.log(this); // 이벤트가 걸린 요소 (button2)
+            console.log(e.currentTarget); // 이벤트가 걸린 요소 (button2)
+            console.log(this === e.currentTarget); // true
+            this.textContent++; // 클릭한 버튼의 텍스트 값이 증가
+        });
+
+    </script>
+</body>
+
+</html>

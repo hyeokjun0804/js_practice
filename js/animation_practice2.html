@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animation</title>
+    <style>
+        /* 컨테이너 스타일 */
+        #container {
+            width: 500px;
+            /* 컨테이너의 너비 설정 */
+            margin: 20px auto;
+            /* 상하 마진 20px, 좌우 중앙 정렬 */
+        }
+
+        /* 기본 박스 스타일 */
+        .box {
+            width: 100px;
+            /* 박스의 너비 */
+            height: 100px;
+            /* 박스의 높이 */
+            float: left;
+            /* 박스를 왼쪽 정렬 */
+            margin: 50px;
+            /* 박스 주위의 여백 */
+        }
+
+        /* 첫 번째 박스 스타일과 애니메이션 적용 */
+        #box1 {
+            background-color: #4cff00;
+            /* 배경색 설정 (밝은 녹색) */
+            border: 1px solid transparent;
+            /* 투명한 테두리 */
+            animation-name: shape;
+            /* 적용할 애니메이션 이름 */
+            animation-duration: 3s;
+            /* 애니메이션 실행 시간 3초 */
+            animation-iteration-count: infinite;
+            /* 애니메이션 무한 반복 */
+        }
+
+        /* 두 번째 박스 스타일과 애니메이션 적용 */
+        #box2 {
+            background-color: #8f06b0;
+            /* 배경색 설정 (보라색) */
+            border: 1px solid transparent;
+            /* 투명한 테두리 */
+            animation-name: rotate;
+            /* 적용할 애니메이션 이름 */
+            animation-duration: 3s;
+            /* 애니메이션 실행 시간 3초 */
+            animation-iteration-count: infinite;
+            /* 애니메이션 무한 반복 */
+        }
+
+        /* shape 애니메이션 정의 */
+        @keyframes shape {
+            from {
+                border: 1px solid transparent;
+                /* 시작 시 1px 투명한 테두리 */
+            }
+
+            to {
+                border: 1px solid #000;
+                /* 3초 후 검정색 테두리 */
+                border-radius: 50%;
+                /* 3초 후 둥근 테두리 */
+            }
+        }
+
+        /* rotate 애니메이션 정의 */
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+                /* 시작 시 회전 각도 0도 */
+            }
+
+            to {
+                transform: rotate(45deg);
+                /* 3초 후 회전 각도 45도 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 애니메이션이 적용될 두 개의 박스 -->
+    <div id="container">
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"></div>
+    </div>
+</body>
+
+</html>

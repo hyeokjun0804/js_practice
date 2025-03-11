@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>마우스 드래그 예제</title>
+    <style>
+        #fruits {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #fruits li {
+            width: 100px;
+            cursor: pointer;
+        }
+
+        #fruits .active {
+            color: red;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul id="fruits">
+            <li id="apple" class="active">Apple</li>
+            <li id="bannana">Bannana</li>
+            <li id="orange">Orange</li>
+        </ul>
+    </nav>
+    <div>navigation item: <em class="msg">apple</em></div>
+
+    <script>
+        let fruits = document.getElementById('fruits');
+        let msg = document.querySelector('.msg');
+
+        let activate = ({ target }) => {
+            [...fruits.children].forEach(fruit => {
+                fruit.classList.toggle('active', fruit === target);
+            });
+            msg.textContent = target.id;
+        };
+        document.getElementById('apple').onclick = activate;
+        document.getElementById('bannana').onclick = activate;
+        document.getElementById('orange').onclick = activate;
+
+    </script>
+</body>
+
+</html>

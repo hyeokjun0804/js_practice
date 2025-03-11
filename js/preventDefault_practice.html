@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>마우스 드래그 예제</title>
+</head>
+
+<body>
+    <a href="https://www.google.com">Go to Google</a> <br>
+    <input type="checkbox" id="agree"> I agree to the terms
+
+    <script>
+        document.querySelector('a').onclick = e => {
+            e.preventDefault();
+            alert('링크 클릭이 막혔습니다.');
+        };
+
+        document.querySelector('input[type=checkbox]').onclick = e => {
+            e.preventDefault();
+            alert('이 체크박스는 클릭할 수 없습니다.');
+        };
+
+
+    </script>
+</body>
+
+</html>

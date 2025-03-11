@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animation</title>
+    <style>
+        /* 박스 스타일 */
+        .bear {
+            width: 100px;
+            height: 100px;
+            margin: 60px auto;
+            border-radius: 50px;
+            animation: rotate 1.5s infinite, background 1.5s infinite alternate;
+            /* 애니메이션 적용 */
+            background-image: url('img/image1.jpg');
+            background-size: cover;
+            /* 이미지 크기 조정 */
+            background-position: center;
+            /* 이미지 위치 중앙 */
+            box-shadow: 5px 5px 40px black;
+            /* 그림자 효과 */
+        }
+
+        /* 회전 애니메이션 정의 */
+        @keyframes rotate {
+            from {
+                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+            }
+
+            50% {
+                transform: perspective(120px) rotateX(0deg) rotateY(90deg);
+            }
+        }
+        @keyframes background{
+            50% {box-shadow: 5px 5px 40px black;}
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- 애니메이션이 적용될 박스 -->
+    <div class="bear"></div>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animation</title>
+    <style>
+        /* 박스 스타일 */
+        .box {
+            width: 100px;
+            /* 박스의 너비 */
+            height: 100px;
+            /* 박스의 높이 */
+            margin: 60px auto;
+            /* 상하 60px 마진과 좌우 중앙 정렬 */
+            animation: rotate 1.5s infinite, background 1.5s infinite alternate;
+            /* 두 개의 애니메이션을 동시에 적용 */
+        }
+
+        /* 회전 애니메이션 정의 */
+        @keyframes rotate {
+            from {
+                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+                /* 초기 상태: 회전 없음 */
+            }
+
+            50% {
+                transform: perspective(120px) rotateX(-180deg) rotateY(0deg);
+                /* 중간 상태: X축으로 -180도 회전 */
+            }
+
+            to {
+                transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+                /* 끝 상태: X축과 Y축으로 -180도 회전 */
+            }
+        }
+
+        /* 배경색 애니메이션 정의 */
+        @keyframes background {
+            from {
+                background-color: red;
+            }
+
+            /* 초기 상태: 빨간색 */
+            50% {
+                background-color: green;
+            }
+
+            /* 중간 상태: 초록색 */
+            to {
+                background-color: blue;
+            }
+
+            /* 끝 상태: 파란색 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 애니메이션이 적용될 박스 -->
+    <div class="box"></div>
+</body>
+
+</html>
